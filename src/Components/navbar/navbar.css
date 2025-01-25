@@ -1,0 +1,204 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .logo {
+    height: 40px;
+  }
+  
+  .nav-logo p {
+    color: #171717;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+  }
+  
+  .mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #626262;
+  }
+  
+  .nav-menu li {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .nav-menu a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .nav-menu hr {
+    border: none;
+    height: 2px;
+    background: #ff4141;
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  .nav-login-cart {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .nav-login-cart button {
+    padding: 8px 20px;
+    border: 1px solid #7a7a7a;
+    border-radius: 50px;
+    background: white;
+    color: #515151;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-login-cart button:hover {
+    background-color: #f3f3f3;
+  }
+  
+  .nav-login-cart img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .nav-cart-count {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    background: red;
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+    left: -10px;
+  }
+  
+  .nav-menu.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background: white;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    z-index: 1000;
+  }
+  
+  .nav-menu.open li {
+    text-align: center;
+  }
+  
+  .mobile-login button {
+    padding: 8px 20px;
+    border: 1px solid #7a7a7a;
+    border-radius: 50px;
+    background: white;
+    color: #515151;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .mobile-login button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .mobile-login button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Masquer le bouton Login dans la vue mobile */
+  @media (max-width: 768px) {
+    .nav-menu {
+      display: none;
+    }
+  
+    .mobile-menu-toggle {
+      display: flex;
+      margin-left: 5px;
+    }
+  
+    .nav-login-cart {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      order: 2;
+    }
+  
+    .nav-logo p {
+      font-size: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    /* Le bouton Login n'est visible que dans le menu mobile */
+    .mobile-login {
+      display: block;
+    }
+  
+    /* Cache le bouton Login dans la barre de navigation mobile */
+    .nav-login-cart .login-button {
+      display: none;
+    }
+  }
+  .nav-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espace entre l'icône et le texte */
+  }
+  
+  .nav-menu li svg {
+    color: #626262; /* Couleur des icônes */
+  }
+  
+  .nav-menu li:hover svg {
+    color: #ff4141; /* Couleur au survol */
+  }
+  
+  .nav-menu.open li a {
+    justify-content: center; /* Centrer les icônes et le texte dans le menu mobile */
+  }
+  button svg {
+    margin-right: 8px;
+    vertical-align: middle;
+  }  
+  

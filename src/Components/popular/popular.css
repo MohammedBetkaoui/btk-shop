@@ -1,0 +1,49 @@
+
+.popular {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .popular h1 {
+    color: #171717;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .popular hr {
+    width: 100px;
+    height: 4px;
+    border-radius: 10px;
+    background: #252525;
+    margin-top: 10px;
+  }
+  
+  .popular-item {
+    display: grid; /* Utilisation de Grid pour gérer les lignes et colonnes */
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes sur les écrans plus grands */
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .popular h1 {
+      font-size: 1.5rem;
+    }
+  
+    .popular-item {
+      grid-template-columns: repeat(2, 1fr); /* 2 colonnes en vue mobile */
+      gap: 10px; /* Espacement plus petit entre les produits */
+    }
+  
+    .item {
+      max-width: 100%;
+    }
+  }
+  
