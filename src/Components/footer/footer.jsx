@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './footer.css'
 import footer_logo from '../assets/logo_big.png'
 import instagram_icon from '../assets/instagram_icon.png'
-import pinterest_icon from '../assets/pintester_icon.png'
-import whatapp_icon from '../assets/whatsapp_icon.png'
+import github_icon from '../assets/github.png'
+import linkedin_icon from '../assets/linkedin.png'
+import connection_icon from '../assets/portefeuille.png'
  const Footer = () => {
   return (
     <div className='footer'>
@@ -21,15 +23,18 @@ import whatapp_icon from '../assets/whatsapp_icon.png'
        <div className="footer-social-icon">
 
              <div className="footer-icons-container">
-                <img src={instagram_icon} alt="" />
+             <Link to={'https://www.instagram.com/mohamed_betkaoui/'}><img src={instagram_icon} alt="" /></Link> 
              </div>
 
              <div className="footer-icons-container">
-                <img src={pinterest_icon} alt="" />
+                <Link to={'https://github.com/MohammedBetkaoui'}><img src={github_icon} alt="" /></Link>
              </div>
 
              <div className="footer-icons-container">
-                <img src={whatapp_icon} alt="" />
+                <Link to={'https://www.linkedin.com/in/mohammed-betkaoui-b005342a5/'}><img src={linkedin_icon} alt="" /></Link>
+             </div>
+             <div className="footer-icons-container">
+                <Link to={'https://betkaoui.netlify.app/'}><img src={connection_icon} alt="" /></Link>
              </div>
 
        </div>
