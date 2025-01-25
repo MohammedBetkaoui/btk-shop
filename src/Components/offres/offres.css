@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.offres {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(145deg, #ffffff 0%, #e0e7ff 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+}
+
+.offres-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.offres-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0.5rem 0;
+    line-height: 1.2;
+}
+
+.offres-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.offres-button {
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #6c63ff, #4a46d1);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+}
+
+.offres-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(108, 99, 255, 0.5);
+}
+
+.offres-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.offres-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.offres-image:hover {
+    transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+    .offres {
+        flex-direction: row;
+        padding: 60px 40px;
+    }
+
+    .offres-left {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .offres-title {
+        font-size: 3rem;
+    }
+
+    .offres-subtitle {
+        font-size: 1.4rem;
+    }
+
+    .offres-button {
+        padding: 18px 40px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .offres {
+        padding: 80px 60px;
+    }
+
+    .offres-title {
+        font-size: 3.5rem;
+    }
+
+    .offres-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .offres-button {
+        padding: 20px 50px;
+        font-size: 1.2rem;
+    }
+}

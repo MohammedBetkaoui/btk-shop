@@ -116,7 +116,7 @@
 }
 
 .hero-image {
-    max-width: 100%;
+    max-width: 87%;
     height: auto;
     animation: slideIn 1s ease;
 }
