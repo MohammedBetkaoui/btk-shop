@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './productDisplay.css';
 import star_icon from '../assets/star_icon.png';
 import star_dull_icon from '../assets/star_dull_icon.png';
 
 const ProductDisplay = (props) => {
   const { product } = props;
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const handleSizeClick = (size) => {
+    setSelectedSize(size);
+  };
 
   return (
     <div className='productdisplay'>
@@ -37,17 +42,20 @@ const ProductDisplay = (props) => {
           A lightweight, usually made of cotton and polyester, it is a great choice for summer. It has a slightly rounded shape, a slightly looser fit, and a slightly longer sleeve. It is a great choice for summer.
         </div>
         <div className="productdisplay-right-size">
-          <label>Size:</label>
-          <select>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
-          <label>Quantity:</label>
-          <input type="number" min="1" max="10" />
-          <button>Add to Cart</button>
+          <h1>Select Size</h1>
+          <div className="productdisplay-right-sizes">
+            {['S', 'M', 'L', 'XL', 'XXL'].map((size) => (
+              <div
+                key={size}
+                className={selectedSize === size ? 'selected' : ''}
+                onClick={() => handleSizeClick(size)}
+              >
+                {size}
+              </div>
+            ))}
+          </div>
         </div>
+        <button>Add to Cart</button>
       </div>
     </div>
   );
