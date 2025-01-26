@@ -20,10 +20,11 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="nav-logo">
-        <img src={logo} alt="Logo" className="logo" />
+        <Link to='/'><img src={logo} alt="Logo" className="logo" /></Link>
         <p>BTK-SHOP</p>
       </div>
 
+      {/* Menu principal */}
       <ul className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
         <li onClick={() => { setMenu('shop'); closeMobileMenu(); }}>
           <Link to="/">
@@ -50,37 +51,33 @@ const Navbar = () => {
           {menu === 'kids' && <hr />}
         </li>
 
-        {/* Affichage du bouton Login uniquement dans le menu mobile */}
-        {isMobileMenuOpen && (
-          <li className="mobile-login" onClick={closeMobileMenu}>
-            <Link to="/login">
-              <button>
-                <LogIn size={16} style={{ marginRight: '8px' }} />
-                Login
-              </button>
-            </Link>
-          </li>
-        )}
+        {/* Bouton de connexion dans le menu mobile */}
+        <li className="mobile-login-button" onClick={closeMobileMenu}>
+          <Link to="/login">
+            <LogIn size={16} style={{ marginRight: '8px' }} />
+            Login
+          </Link>
+        </li>
       </ul>
 
-      {/* Affichage du bouton Login dans la vue PC uniquement */}
-      <div className="nav-login-cart">
+      {/* Boutons de connexion et panier (version desktop) */}
+      <div className="nav-actions">
         <Link to="/login" className="login-button">
           <button>
             <LogIn size={16} style={{ marginRight: '8px' }} />
             Login
           </button>
         </Link>
-        <Link to="/cart">
-          <img src={cart_icon} alt="Cart Icon" className="nav-cart-icon" />
+        <Link to="/cart" className="cart-icon">
+          <img src={cart_icon} alt="Cart Icon" />
+          <span className="cart-count">0</span>
         </Link>
-        <div className="nav-cart-count">0</div>
-
-        {/* Icône de menu mobile */}
-        <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
+
+      {/* Bouton de menu mobile */}
+      <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
+        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
     </div>
   );
 };

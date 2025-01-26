@@ -1,17 +1,16 @@
 import React from 'react';
 import './hero.css';
 import arrow_icon from '../assets/arrow.png';
-import hero_image from '../assets/hero_image.png';
+import hero_image from '../assets/florencia-simonini-PDZAMYvduVk-unsplash-removebg-preview.png';
 
 const Hero = () => {
   return (
     <div className='hero'>
       <div className="hero-left">
         <h2>Discover Our Exclusive Range</h2>
-        <div>
+        <div className="hero-text">
           <div className="hero-hand-icon">
             <p>Fresh</p>
-            
           </div>
           <p>Premium Collections</p>
           <p>Curated for You</p>

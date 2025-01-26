@@ -8,86 +8,54 @@
     padding: 20px;
     gap: 20px;
     text-align: center;
-}
-
-@media (min-width: 768px) {
+  }
+  .hero-right img{
+       margin-top: -50px;
+  }
+  
+  @media (min-width: 768px) {
     .hero {
-        flex-direction: row;
-        text-align: left;
+      flex-direction: row;
+      text-align: left;
     }
-}
-
-.hero-left {
+  }
+  
+  .hero-left {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 20px;
     padding: 20px;
-}
-
-.hero-left h2 {
+  }
+  
+  .hero-left h2 {
     color: #030a10;
     font-size: 3rem;
     font-weight: 800;
-    margin-bottom: 10px;
-    margin-top: 1px;
+    margin-top: 10px;
     text-transform: uppercase;
     background: linear-gradient(90deg, #230808, #fa5252);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: fadeIn 1.2s ease;
-
-    @keyframes fadeIn {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-
-
-}
-}
-
-.hero-left p{
+  }
+  
+  .hero-left p {
     color: #6c757d;
     font-size: 1.6rem;
     line-height: 1.8;
     animation: fadeIn 1.4s ease;
     transition: opacity 0.3s ease;
-   
-    @keyframes fadeIn {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-
-        @media (prefers-reduced-motion: no-preference) {
-            /* no animation on reduced motion */
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-    }
-
-}
-
-.hero-left .subheading {
-    color: #6c757d;
-    font-size: 1.8rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    line-height: 1.6;
-    animation: fadeIn 1.4s ease;
-    transition: opacity 0.3s ease;
-    
-    @keyframes fadeIn {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-        @media (prefers-reduced-motion: no-preference) {
-            /* no animation on reduced motion */
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-    }
-}
-
-
-.hero-latest-btn {
+  }
+  
+  .hero-left .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .hero-latest-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,73 +69,141 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: transform 0.2s, background 0.3s;
-}
-
-.hero-latest-btn:hover {
+  }
+  
+  .hero-latest-btn:hover {
     background: #fa5252;
     transform: translateY(-3px);
-}
-
-.hero-right {
+  }
+  
+  .hero-right {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-}
-
-.hero-image {
+  }
+  
+  .hero-image {
     max-width: 87%;
     height: auto;
     animation: slideIn 1s ease;
-}
-
-@keyframes fadeIn {
+  }
+  
+  @keyframes fadeIn {
     from {
-        opacity: 0;
+      opacity: 0;
     }
     to {
-        opacity: 1;
+      opacity: 1;
     }
-}
-
-@keyframes slideIn {
+  }
+  
+  @keyframes slideIn {
     from {
-        transform: translateY(20px);
-        opacity: 0;
+      transform: translateY(20px);
+      opacity: 0;
     }
     to {
-        transform: translateY(0);
-        opacity: 1;
+      transform: translateY(0);
+      opacity: 1;
     }
-}
-
-@media (max-width: 768px) {
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero {
+      height: auto;
+      padding: 10px;
+    }
+  
     .hero-left {
-        padding: 2px;
-        margin-top: -35px;
+      padding: 10px;
+      margin-top: 0;
+      align-items: center;
+      text-align: center;
     }
-
+  
     .hero-left h2 {
-        font-size: 2rem;
-        margin-top: 150px;
+      font-size: 2rem;
+      margin-top: 20px;
     }
-
-    .hero-left .subheading {
-        font-size: 1.5rem;
+  
+    .hero-left p {
+      font-size: 1.2rem;
     }
-
+  
     .hero-latest-btn {
-        width: auto;
-        padding: 10px 20px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
     }
-
+  
     .hero-right {
-        padding: 10px;
+      padding: 10px;
     }
-
+  
     .hero-image {
-        width: 80%;
-        margin-bottom:80px;
+      width: 80%;
+      margin-bottom: 20px;
     }
-}
+  }
+  
+  /* iPhone 5/SE and small devices */
+  @media (max-width: 320px) {
+    .hero-left h2 {
+      font-size: 1.8rem;
+    }
+  
+    .hero-left p {
+      font-size: 1rem;
+    }
+  
+    .hero-latest-btn {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+    }
+  
+    .hero-image {
+      width: 90%;
+    }
+  }
+  
+  /* iPhone 6/7/8 and similar devices */
+  @media (min-width: 321px) and (max-width: 375px) {
+    .hero-left h2 {
+      font-size: 2rem;
+    }
+  
+    .hero-left p {
+      font-size: 1.1rem;
+    }
+  
+    .hero-latest-btn {
+      padding: 10px 18px;
+      font-size: 0.85rem;
+    }
+  
+    .hero-image {
+      width: 85%;
+    }
+  }
+  
+  /* iPhone 12 Pro Max and similar large devices */
+  @media (min-width: 376px) and (max-width: 428px) {
+    .hero-left h2 {
+      font-size: 2.2rem;
+    }
+  
+    .hero-left p {
+      font-size: 1.3rem;
+    }
+  
+    .hero-latest-btn {
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+  
+    .hero-image {
+      width: 80%;
+    }
+  }

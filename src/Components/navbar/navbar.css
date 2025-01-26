@@ -1,21 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 /* Styles de base */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
+  padding: 1rem 2rem;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   font-family: 'Poppins', sans-serif;
 }
 
+/* Logo */
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
 }
 
 .logo {
@@ -23,44 +26,34 @@
 }
 
 .nav-logo p {
+  font-size: 1.5rem;
+  font-weight: 600;
   color: #2c3e50;
-  font-size: 24px;
-  font-weight: bold;
   margin: 0;
-  white-space: nowrap;
 }
 
-.mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #000000;
-}
-
+/* Menu principal */
 .nav-menu {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 30px;
+  gap: 2rem;
   margin: 0;
   padding: 0;
-  font-size: 16px;
-  font-weight: 500;
-  color: #626262;
 }
 
 .nav-menu li {
   position: relative;
-  cursor: pointer;
 }
 
 .nav-menu a {
   text-decoration: none;
-  color: inherit;
+  color: #626262;
+  font-size: 1rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   transition: color 0.3s ease;
 }
 
@@ -72,149 +65,256 @@
   border: none;
   height: 2px;
   background: #6c63ff;
-  width: 100%;
-  margin-top: 5px;
+  width: 115%;
+  margin-top: 0.25rem;
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
 }
 
-.nav-login-cart {
+/* Boutons de connexion et panier */
+.nav-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 1.5rem;
 }
 
-.nav-login-cart button {
-  padding: 8px 20px;
-  border: 1px solid #000000;
-  border-radius: 50px;
-  background: white;
-  color: #04022e;
-  font-size: 14px;
+.login-button button {
+  padding: 0.5rem 1.5rem;
+  border: 2px solid #111F4D;
+  border-radius: 25px;
+  background: transparent;
+  color: #626262;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.nav-login-cart button:hover {
-  background-color: #000000;
-  color: white;
+.login-button button:hover {
+  background-color: #30475E;
+  color: rgb(255, 255, 255);
 }
 
-/* Icône du panier */
-.nav-cart-icon {
+.cart-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cart-icon img {
   width: 24px;
   height: 24px;
 }
 
-.nav-cart-count {
+.cart-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #ff4141;
+  color: white;
+  font-size: 0.75rem;
   width: 18px;
   height: 18px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  color: white;
-  background: red;
-  border-radius: 50%;
-  position: relative;
-  top: -10px;
-  left: -10px;
 }
 
+/* Menu mobile */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2c3e50;
+}
+
+/* Styles pour le menu mobile ouvert */
 .nav-menu.open {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 60px;
+  top: 100%;
   left: 0;
-  background: white;
-  width: 100%;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  gap: 10px;
-  z-index: 1000;
+  right: 0;
+  background: #FDF6FA;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  gap: 1rem;
+  z-index: 999;
 }
 
-.nav-menu.open li {
-  text-align: center;
+/* Bouton de connexion dans le menu mobile */
+.mobile-login-button {
+  display: none;
 }
 
-.mobile-login button {
-  padding: 8px 20px;
-  border: 1px solid #000006;
-  border-radius: 50px;
-  background: rgb(29, 13, 78);
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.mobile-login button:hover {
-  background-color: #130e70;
-  color: white;
-}
-
-/* Masquer le bouton Login dans la vue mobile */
+/* Responsive Design */
 @media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+    height: auto;
+  }
+
   .nav-menu {
     display: none;
   }
 
+  .nav-menu a:hover {
+    color: #000000;
+  }
+
   .mobile-menu-toggle {
-    display: flex;
-    margin-left: 5px;
+    display: block;
   }
 
-  .nav-login-cart {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: 25px;
-    order: 1;
+  .nav-actions {
+    gap: 1rem;
   }
 
-  .nav-login-cart img {
+  .login-button {
+    display: none; /* Masquer le bouton de connexion desktop */
+  }
+
+  .mobile-login-button {
+    display: block; /* Afficher le bouton de connexion mobile */
+    padding: 0.5rem 1.5rem;
+    border: 2px solid #111F4D;
+    border-radius: 25px;
+    background: transparent;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .mobile-login-button:hover {
+    background-color: #30475E;
+    color: rgb(255, 255, 255);
+  }
+
+  .cart-icon img {
+    width: 20px;
+    height: 20px;
+    margin-left: 60px;
+  }
+
+  .cart-count {
+    top: -8px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    font-size: 0.7rem;
+  }
+}
+
+/* iPhone 5/SE */
+@media (max-width: 320px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  .nav-logo p {
+    font-size: 1.2rem;
+  }
+
+  .mobile-login-button {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .cart-icon img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cart-count {
+    width: 14px;
+    height: 14px;
+    font-size: 0.6rem;
+  }
+}
+
+/* iPhone 6/7/8 and similar Android devices */
+@media (min-width: 321px) and (max-width: 375px) {
+  .navbar {
+    padding: 0.75rem;
+  }
+
+  .nav-logo p {
+    font-size: 1.3rem;
+  }
+
+  .mobile-login-button {
+    padding: 0.45rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .cart-icon img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cart-count {
+    width: 16px;
+    height: 16px;
+    font-size: 0.65rem;
+  }
+}
+
+/* iPhone 6/7/8 Plus and similar Android devices */
+@media (min-width: 376px) and (max-width: 414px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .nav-logo p {
+    font-size: 1.4rem;
+  }
+
+  .mobile-login-button {
+    padding: 0.5rem 1.3rem;
+    font-size: 0.9rem;
+  }
+
+  .cart-icon img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .cart-count {
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+  }
+}
+
+/* iPhone 12 Pro Max and similar large devices */
+@media (min-width: 415px) and (max-width: 428px) {
+  .navbar {
+    padding: 1.2rem;
+  }
+
+  .nav-logo p {
+    font-size: 1.5rem;
+  }
+
+  .mobile-login-button {
+    padding: 0.55rem 1.4rem;
+    font-size: 0.95rem;
+  }
+
+  .cart-icon img {
     width: 24px;
     height: 24px;
   }
 
-  .nav-logo p {
-    font-size: 18px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .cart-count {
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
   }
-
-  /* Le bouton Login est visible uniquement dans le menu mobile */
-  .mobile-login {
-    display: block;
-  }
-
-  /* Cache le bouton Login dans la barre de navigation mobile */
-  .nav-login-cart .login-button {
-    display: none;
-  }
-}
-
-.nav-menu li a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-menu li svg {
-  color: #5a5858;
-}
-
-.nav-menu li:hover svg {
-  color: #070440;
-}
-
-.nav-menu.open li a {
-  justify-content: center;
-}
-
-button svg {
-  vertical-align: middle;
 }
