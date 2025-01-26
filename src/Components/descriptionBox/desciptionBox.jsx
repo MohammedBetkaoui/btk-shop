@@ -7,7 +7,7 @@ const DescriptionBox = () => {
       {/* Navigation pour Description et Reviews */}
       <div className="descriptionbox-navigator">
         <div className="descriptionbox-nav-box">Description</div>
-        <div className="descriptionbox-nav-box fade">Reviews (122)</div>
+        
       </div>
 
       {/* Contenu de la description */}

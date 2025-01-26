@@ -79,25 +79,50 @@
   
   /* Styles pour le tableau de résumé */
   .cartitems-summary {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+  }
+  
+  .cartitems-summary h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .cartitems-summary-table {
     width: 100%;
-    margin-top: 20px;
     border-collapse: collapse;
   }
   
-  .cartitems-summary td {
+  .cartitems-summary-table th,
+  .cartitems-summary-table td {
     padding: 12px;
-    text-align: right;
-    border-top: 2px solid #ddd;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
   }
   
-  .cartitems-summary-label {
+  .cartitems-summary-table th {
+    background-color: #e0e0e0;
     font-weight: bold;
-    text-align: left;
   }
   
-  .cartitems-summary-value {
+  .cartitems-summary-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+  
+  .cartitems-summary-total {
     font-weight: bold;
-    color: #333;
+    background-color: #e0e0e0;
+  }
+  
+  .cartitems-summary-total td {
+    padding: 15px;
   }
   
   /* Responsive Design pour mobile */
@@ -163,5 +188,54 @@
     .cartitems-remove-icon {
       width: 24px;
       height: 24px;
+    }
+  
+    .cartitems-summary-table {
+      display: block;
+    }
+  
+    .cartitems-summary-table thead {
+      display: none;
+    }
+  
+    .cartitems-summary-table tbody,
+    .cartitems-summary-table tr,
+    .cartitems-summary-table td {
+      display: block;
+      width: 95%;
+    }
+  
+    .cartitems-summary-table tr {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+  
+    .cartitems-summary-table td {
+      text-align: right;
+      padding: 10px;
+      position: relative;
+      border-bottom: 1px solid #eee;
+    }
+  
+    .cartitems-summary-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 10px;
+      width: 50%;
+      padding-right: 10px;
+      text-align: left;
+      font-weight: bold;
+      color: #555;
+    }
+  
+    .cartitems-summary-image {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 10px;
+      display: block;
     }
   }

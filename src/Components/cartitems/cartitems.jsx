@@ -22,22 +22,31 @@ const Cartitems = () => {
       <table className="cartitems-table">
         <thead>
           <tr>
+            <th>Remove</th>
             <th>Product</th>
             <th>Title</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Total</th>
-            <th>Remove</th>
+            
           </tr>
         </thead>
         <tbody>
           {cartItems.length > 0 ? (
             cartItems.map((product) => (
               <tr key={product.id} className="cartitems-product">
+                 <td>
+                  <img
+                    src={remove_icon}
+                    alt="remove"
+                    className="cartitems-remove-icon"
+                    onClick={() => removeFromCart(product.id, cart[product.id])}
+                  />
+                </td>
                 <td data-label="Product">
                   <img src={product.image} alt={product.name} className="cartitems-image" />
                 </td>
-                <td >{product.name}</td>
+                <td>{product.name}</td>
                 <td data-label="Price">${product.new_price.toFixed(2)}</td>
                 <td data-label="Quantity">
                   <div className="cartitems-quantity-wrapper">
@@ -65,14 +74,7 @@ const Cartitems = () => {
                   </div>
                 </td>
                 <td data-label="Total">${(product.new_price * cart[product.id]).toFixed(2)}</td>
-                <td data-label="Remove">
-                  <img
-                    src={remove_icon}
-                    alt="remove"
-                    className="cartitems-remove-icon"
-                    onClick={() => removeFromCart(product.id, cart[product.id])}
-                  />
-                </td>
+               
               </tr>
             ))
           ) : (
@@ -87,18 +89,36 @@ const Cartitems = () => {
 
       {/* Tableau pour le total du panier */}
       {cartItems.length > 0 && (
-        <table className="cartitems-summary">
-          <tbody>
-            <tr>
-              <td colSpan="4" className="cartitems-summary-label">
-                Total:
-              </td>
-              <td className="cartitems-summary-value">
-                ${calculateTotal()}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="cartitems-summary">
+          <h3>Cart Summary</h3>
+          <table className="cartitems-summary-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((product) => (
+                <tr key={product.id}>
+                  <td data-label="Product">
+                    <img src={product.image} alt={product.name} className="cartitems-summary-image" />
+                    <span>{product.name}</span>
+                  </td>
+                  <td data-label="Price">${product.new_price.toFixed(2)}</td>
+                  <td data-label="Quantity">{cart[product.id]}</td>
+                  <td data-label="Total">${(product.new_price * cart[product.id]).toFixed(2)}</td>
+                </tr>
+              ))}
+              <tr className="cartitems-summary-total">
+                <td colSpan="3">Total</td>
+                <td>${calculateTotal()}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
