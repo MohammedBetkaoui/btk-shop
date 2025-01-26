@@ -12,7 +12,7 @@
   /* Navigation pour Description et Reviews */
   .descriptionbox-navigator {
     display: flex;
-    background: linear-gradient(135deg, #6c63ff, #4a47a3);
+    background: linear-gradient(135deg, #071952, #088395);
     border-radius: 12px 12px 0 0;
     overflow: hidden;
   }

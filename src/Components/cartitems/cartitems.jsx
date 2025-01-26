@@ -16,13 +16,18 @@ const Cartitems = () => {
     }, 0).toFixed(2);
   };
 
+  // Fonction pour gérer le checkout
+  const handleCheckout = () => {
+    alert('Proceeding to checkout...'); // Remplacez cela par votre logique de paiement
+  };
+
   return (
     <div className="cartitems">
       {/* Tableau pour le panier */}
       <table className="cartitems-table">
         <thead>
           <tr>
-            <th>Remove</th>
+          <th>Remove</th>
             <th>Product</th>
             <th>Title</th>
             <th>Price</th>
@@ -35,7 +40,7 @@ const Cartitems = () => {
           {cartItems.length > 0 ? (
             cartItems.map((product) => (
               <tr key={product.id} className="cartitems-product">
-                 <td>
+                <td data-label="Remove">
                   <img
                     src={remove_icon}
                     alt="remove"
@@ -74,7 +79,7 @@ const Cartitems = () => {
                   </div>
                 </td>
                 <td data-label="Total">${(product.new_price * cart[product.id]).toFixed(2)}</td>
-               
+                
               </tr>
             ))
           ) : (
@@ -105,7 +110,7 @@ const Cartitems = () => {
                 <tr key={product.id}>
                   <td data-label="Product">
                     <img src={product.image} alt={product.name} className="cartitems-summary-image" />
-                    <span>{product.name}</span>
+                    
                   </td>
                   <td data-label="Price">${product.new_price.toFixed(2)}</td>
                   <td data-label="Quantity">{cart[product.id]}</td>
@@ -118,6 +123,11 @@ const Cartitems = () => {
               </tr>
             </tbody>
           </table>
+
+          {/* Bouton de checkout */}
+          <button className="cartitems-checkout-button" onClick={handleCheckout}>
+            Proceed to Checkout
+          </button>
         </div>
       )}
     </div>

@@ -20,8 +20,9 @@
   }
   
   .cartitems-table th {
-    background-color: #f8f8f8;
+    background-color: #37B7C3;
     font-weight: bold;
+    color: white;
   }
   
   .cartitems-image {
@@ -104,8 +105,9 @@
   }
   
   .cartitems-summary-table th {
-    background-color: #e0e0e0;
+    background-color: #088395;
     font-weight: bold;
+    color: white;
   }
   
   .cartitems-summary-image {
@@ -118,7 +120,8 @@
   
   .cartitems-summary-total {
     font-weight: bold;
-    background-color: #e0e0e0;
+    background-color: #071952;
+    color: white;
   }
   
   .cartitems-summary-total td {
@@ -130,7 +133,8 @@
     .cartitems-table {
       display: block;
     }
-  
+
+    
     .cartitems-table thead {
       display: none;
     }
@@ -211,7 +215,8 @@
       border-radius: 10px;
       padding: 15px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      background-color: #fff;
+      background-color: #EBF4F6;
+      color: black;
     }
   
     .cartitems-summary-table td {
@@ -239,3 +244,28 @@
       display: block;
     }
   }
+  /* Styles pour le bouton de checkout */
+.cartitems-checkout-button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto 0;
+    padding: 15px;
+    background-color: #088395; /* Couleur verte */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cartitems-checkout-button:hover {
+    background-color: #37B7C3; /* Couleur verte plus foncée au survol */
+  }
+  
+  
+  
+  
