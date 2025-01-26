@@ -1,0 +1,177 @@
+/* Conteneur principal */
+.descriptionbox {
+    margin: 2rem auto;
+    max-width: 1200px;
+    padding: 0 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  /* Navigation pour Description et Reviews */
+  .descriptionbox-navigator {
+    display: flex;
+    background: linear-gradient(135deg, #6c63ff, #4a47a3);
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+  }
+  
+  .descriptionbox-nav-box {
+    flex: 1;
+    padding: 1.2rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .descriptionbox-nav-box:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .descriptionbox-nav-box.fade {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Contenu de la description */
+  .descriptionbox-description {
+    padding: 2rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #444;
+  }
+  
+  .descriptionbox-description h2 {
+    font-size: 1.75rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .descriptionbox-description p {
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+  
+  .descriptionbox-description ul {
+    list-style-type: none;
+    margin-left: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .descriptionbox-description ul li {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  
+  .descriptionbox-description ul li::before {
+    content: "•";
+    color: #6c63ff;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+    top: -0.25rem;
+  }
+  
+  /* Effets modernes */
+  .descriptionbox-description a {
+    color: #6c63ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  .descriptionbox-description a:hover {
+    color: #4a47a3;
+  }
+  
+  /* Responsive Design pour tous les appareils mobiles */
+  @media (max-width: 768px) {
+    .descriptionbox {
+      padding: 0 1rem;
+      margin: 1.5rem auto;
+      border-radius: 8px;
+    }
+  
+    .descriptionbox-navigator {
+      flex-direction: column;
+      border-radius: 8px 8px 0 0;
+    }
+  
+    .descriptionbox-nav-box {
+      padding: 1rem;
+      font-size: 0.95rem;
+    }
+  
+    .descriptionbox-description {
+      padding: 1.5rem;
+    }
+  
+    .descriptionbox-description h2 {
+      font-size: 1.5rem;
+    }
+  
+    .descriptionbox-description ul li::before {
+      font-size: 1.25rem;
+      top: -0.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .descriptionbox {
+      padding: 0 0.75rem;
+      margin: 1rem auto;
+      border-radius: 6px;
+    }
+  
+    .descriptionbox-nav-box {
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
+  
+    .descriptionbox-description {
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  
+    .descriptionbox-description h2 {
+      font-size: 1.25rem;
+    }
+  
+    .descriptionbox-description ul li::before {
+      font-size: 1rem;
+      top: -0.15rem;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .descriptionbox {
+      padding: 0 0.5rem;
+      margin: 0.75rem auto;
+      border-radius: 4px;
+    }
+  
+    .descriptionbox-nav-box {
+      padding: 0.6rem;
+      font-size: 0.85rem;
+    }
+  
+    .descriptionbox-description {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+    }
+  
+    .descriptionbox-description h2 {
+      font-size: 1.1rem;
+    }
+  
+    .descriptionbox-description ul li::before {
+      font-size: 0.9rem;
+      top: -0.1rem;
+    }
+  }

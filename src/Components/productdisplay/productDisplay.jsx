@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './productDisplay.css';
 import star_icon from '../assets/star_icon.png';
 import star_dull_icon from '../assets/star_dull_icon.png';
+import ShopContext from '../../Context/shopContext';
 
 const ProductDisplay = (props) => {
   const { product } = props;
+  const { addToCart } = useContext(ShopContext);
   const [selectedSize, setSelectedSize] = useState(null);
 
   const handleSizeClick = (size) => {
     setSelectedSize(size);
+  };
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Please select a size before adding to cart.");
+      return;
+    }
+    addToCart(product.id, selectedSize); // Passer la taille sélectionnée
   };
 
   return (
@@ -55,7 +65,7 @@ const ProductDisplay = (props) => {
             ))}
           </div>
         </div>
-        <button>Add to Cart</button>
+        <button onClick={handleAddToCart}>Add to Cart</button>
       </div>
     </div>
   );
