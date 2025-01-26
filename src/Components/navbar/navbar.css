@@ -1,18 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* Styles de base pour le mode clair */
-body {
-  background-color: #ffffff;
-  color: #2c3e50;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Styles pour le mode sombre */
-body.dark-mode {
-  background: white;
-  color: #f0f0f0;
-}
-
+/* Styles de base */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -22,12 +10,6 @@ body.dark-mode {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   font-family: 'Poppins', sans-serif;
-  transition: background-color 0.3s ease;
-}
-
-body.dark-mode .navbar {
-  background-color: #000000;
-  color: #f0f0f0;
 }
 
 .nav-logo {
@@ -46,11 +28,6 @@ body.dark-mode .navbar {
   font-weight: bold;
   margin: 0;
   white-space: nowrap;
-  transition: color 0.3s ease;
-}
-
-body.dark-mode .nav-logo p {
-  color: #f0f0f0;
 }
 
 .mobile-menu-toggle {
@@ -58,11 +35,6 @@ body.dark-mode .nav-logo p {
   background: none;
   border: none;
   cursor: pointer;
-  color: #000000;
-  transition: color 0.3s ease;
-}
-
-body.dark-mode .mobile-menu-toggle {
   color: #000000;
 }
 
@@ -76,11 +48,6 @@ body.dark-mode .mobile-menu-toggle {
   font-size: 16px;
   font-weight: 500;
   color: #626262;
-  transition: color 0.3s ease;
-}
-
-body.dark-mode .nav-menu {
-  color: #f0f0f0;
 }
 
 .nav-menu li {
@@ -136,12 +103,6 @@ body.dark-mode .nav-menu {
 .nav-cart-icon {
   width: 24px;
   height: 24px;
-  transition: filter 0.3s ease; /* Transition pour un effet fluide */
-}
-
-/* Icône du panier en mode sombre */
-body.dark-mode .nav-cart-icon {
-  filter: brightness(0) invert(1); /* Transforme l'icône en blanc */
 }
 
 .nav-cart-count {
@@ -171,20 +132,13 @@ body.dark-mode .nav-cart-icon {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   gap: 10px;
   z-index: 1000;
-  transition: background-color 0.3s ease;
-}
-
-body.dark-mode .nav-menu.open {
-  background-color: #000000;
-  color: #f0f0f0;
 }
 
 .nav-menu.open li {
   text-align: center;
 }
 
-.mobile-login button,
-.mobile-dark-mode button {
+.mobile-login button {
   padding: 8px 20px;
   border: 1px solid #000006;
   border-radius: 50px;
@@ -196,8 +150,7 @@ body.dark-mode .nav-menu.open {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.mobile-login button:hover,
-.mobile-dark-mode button:hover {
+.mobile-login button:hover {
   background-color: #130e70;
   color: white;
 }
@@ -233,19 +186,13 @@ body.dark-mode .nav-menu.open {
     text-overflow: ellipsis;
   }
 
-  /* Le bouton Login et Dark Mode sont visibles uniquement dans le menu mobile */
-  .mobile-login,
-  .mobile-dark-mode {
+  /* Le bouton Login est visible uniquement dans le menu mobile */
+  .mobile-login {
     display: block;
   }
 
   /* Cache le bouton Login dans la barre de navigation mobile */
   .nav-login-cart .login-button {
-    display: none;
-  }
-
-  /* Afficher l'icône de dark mode dans la vue mobile */
-  .dark-mode-toggle {
     display: none;
   }
 }
@@ -270,21 +217,4 @@ body.dark-mode .nav-menu.open {
 
 button svg {
   vertical-align: middle;
-}
-
-/* Styles pour l'icône de dark mode dans la vue PC */
-.dark-mode-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #000000;
-  transition: color 0.3s ease;
-}
-
-body.dark-mode .dark-mode-toggle {
-  color: #0a0707;
-}
-
-.dark-mode-toggle:hover {
-  color: #000000;
 }
