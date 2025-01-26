@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './navbar.css';
 import logo from '../assets/logo.png';
 import cart_icon from '../assets/cart_icon.png';
 import { Link } from 'react-router-dom';
 import { Menu, X, ShoppingCart, Shirt, User, Baby, LogIn } from 'lucide-react';
+import { ShopContext } from '../../Context/shopContext'; // Importez ShopContext
 
 const Navbar = () => {
   const [menu, setMenu] = useState('shop');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Accédez au panier depuis le contexte
+  const { cart } = useContext(ShopContext);
+
+  // Calculez le nombre total d'articles dans le panier
+  const getTotalCartItems = () => {
+    return Object.values(cart).reduce((total, quantity) => total + quantity, 0);
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -70,7 +79,8 @@ const Navbar = () => {
         </Link>
         <Link to="/cart" className="cart-icon">
           <img src={cart_icon} alt="Cart Icon" />
-          <span className="cart-count">0</span>
+          {/* Affichez le nombre total d'articles dans le panier */}
+          <span className="cart-count">{getTotalCartItems()}</span>
         </Link>
       </div>
 
