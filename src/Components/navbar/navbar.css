@@ -121,6 +121,24 @@
   align-items: center;
   justify-content: center;
 }
+.login-button button,
+.login-button {
+  padding: 0.5rem 1.5rem;
+  
+  border-radius: 25px;
+  background: transparent;
+  color: #626262;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-button button:hover,
+.login-button:hover {
+  background-color: #30475E;
+  color: rgb(255, 255, 255);
+}
 
 /* Menu mobile */
 .mobile-menu-toggle {
@@ -130,6 +148,7 @@
   cursor: pointer;
   color: #2c3e50;
 }
+
 
 /* Styles pour le menu mobile ouvert */
 .nav-menu.open {

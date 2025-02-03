@@ -3,8 +3,11 @@ import './navbar.css';
 import logo from '../assets/logo.png';
 import cart_icon from '../assets/cart_icon.png';
 import { Link } from 'react-router-dom';
-import { Menu, X, ShoppingCart, Shirt, User, Baby, LogIn } from 'lucide-react';
-import { ShopContext } from '../../Context/shopContext'; // Importez ShopContext
+import { Menu, X, ShoppingCart, Shirt, User, Baby, LogIn, LogOut } from 'lucide-react';
+import { ShopContext } from '../../Context/shopContext';
+import { UserContext } from '../../Context/UserContext'; 
+
+
 
 const Navbar = () => {
   const [menu, setMenu] = useState('shop');
@@ -12,6 +15,9 @@ const Navbar = () => {
 
   // Accédez au panier depuis le contexte
   const { cart } = useContext(ShopContext);
+
+  // Accédez à l'utilisateur et aux fonctions de connexion/déconnexion
+  const { user, logout } = useContext(UserContext);
 
   // Calculez le nombre total d'articles dans le panier
   const getTotalCartItems = () => {
@@ -24,6 +30,11 @@ const Navbar = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout(); // Déconnecter l'utilisateur
+    closeMobileMenu(); // Fermer le menu mobile après déconnexion
   };
 
   return (
@@ -60,26 +71,41 @@ const Navbar = () => {
           {menu === 'kids' && <hr />}
         </li>
 
-        {/* Bouton de connexion dans le menu mobile */}
-        <li className="mobile-login-button" onClick={closeMobileMenu}>
-          <Link to="/login">
-            <LogIn size={16} style={{ marginRight: '8px' }} />
-            Login
-          </Link>
-        </li>
+        {/* Bouton de connexion/déconnexion dans le menu mobile */}
+        {user ? (
+          <li className="mobile-login-button" onClick={handleLogout}>
+            <Link to="/">
+              <LogOut size={16} style={{ marginRight: '8px' }} />
+              Logout
+            </Link>
+          </li>
+        ) : (
+          <li className="mobile-login-button" onClick={closeMobileMenu}>
+            <Link to="/login">
+              <LogIn size={16} style={{ marginRight: '8px' }} />
+              Login
+            </Link>
+          </li>
+        )}
       </ul>
 
-      {/* Boutons de connexion et panier (version desktop) */}
+      {/* Boutons de connexion/déconnexion et panier (version desktop) */}
       <div className="nav-actions">
-        <Link to="/login" className="login-button">
-          <button>
-            <LogIn size={16} style={{ marginRight: '8px' }} />
-            Login
+        {user ? (
+          <button className="login-button" onClick={handleLogout}>
+            <LogOut size={16} style={{ marginRight: '8px' }} />
+            Logout
           </button>
-        </Link>
+        ) : (
+          <Link to="/login" className="login-button">
+            <button>
+              <LogIn size={16} style={{ marginRight: '8px' }} />
+              Login
+            </button>
+          </Link>
+        )}
         <Link to="/cart" className="cart-icon">
           <img src={cart_icon} alt="Cart Icon" />
-          {/* Affichez le nombre total d'articles dans le panier */}
           <span className="cart-count">{getTotalCartItems()}</span>
         </Link>
       </div>
