@@ -52,17 +52,17 @@ const Navbar = () => {
           </Link>
           {menu === 'shop' && <hr />}
         </li>
-        <li onClick={() => { setMenu('mens'); closeMobileMenu(); }}>
-          <Link to="/mens">
+        <li onClick={() => { setMenu('men'); closeMobileMenu(); }}>
+          <Link to="/men">
             <Shirt size={16} /> Men
           </Link>
-          {menu === 'mens' && <hr />}
+          {menu === 'men' && <hr />}
         </li>
-        <li onClick={() => { setMenu('womens'); closeMobileMenu(); }}>
-          <Link to="/womens">
+        <li onClick={() => { setMenu('women'); closeMobileMenu(); }}>
+          <Link to="/women">
             <User size={16} /> Women
           </Link>
-          {menu === 'womens' && <hr />}
+          {menu === 'women' && <hr />}
         </li>
         <li onClick={() => { setMenu('kids'); closeMobileMenu(); }}>
           <Link to="/kids">

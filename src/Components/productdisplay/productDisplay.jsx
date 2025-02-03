@@ -2,12 +2,20 @@ import React, { useContext, useState } from 'react';
 import './productDisplay.css';
 import star_icon from '../assets/star_icon.png';
 import star_dull_icon from '../assets/star_dull_icon.png';
-import ShopContext from '../../Context/shopContext';
+import { ShopContext } from '../../Context/shopContext';
+import { useParams } from 'react-router-dom';
 
-const ProductDisplay = (props) => {
-  const { product } = props;
-  const { addToCart } = useContext(ShopContext);
+const ProductDisplay = () => {
+  const { all_product, addToCart } = useContext(ShopContext);
+  const { productId } = useParams();
   const [selectedSize, setSelectedSize] = useState(null);
+
+  // Trouver le produit correspondant à l'ID
+  const product = all_product.find((e) => e.id === Number(productId));
+
+  if (!product) {
+    return <div>Produit non trouvé</div>;
+  }
 
   const handleSizeClick = (size) => {
     setSelectedSize(size);
@@ -15,17 +23,17 @@ const ProductDisplay = (props) => {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      alert("Please select a size before adding to cart.");
+      alert('Veuillez sélectionner une taille avant d\'ajouter au panier.');
       return;
     }
-    addToCart(product.id, selectedSize); // Passer la taille sélectionnée
+    addToCart(product.id, selectedSize); // Ajouter le produit au panier avec la taille sélectionnée
   };
 
   return (
-    <div className='productdisplay'>
+    <div className="productdisplay">
       <div className="productdisplay-left">
         <div className="productdisplay-image">
-          <img className='productdisplay-main-img' src={product.image} alt="Main Product" />
+          <img className="productdisplay-main-img" src={product.image} alt="Main Product" />
         </div>
         <div className="productdisplay-img-list">
           <img src={product.image} alt="Thumbnail 1" />
@@ -49,10 +57,11 @@ const ProductDisplay = (props) => {
           <div className="productdisplay-right-price-new">${product.new_price}</div>
         </div>
         <div className="productdisplay-right-description">
-          A lightweight, usually made of cotton and polyester, it is a great choice for summer. It has a slightly rounded shape, a slightly looser fit, and a slightly longer sleeve. It is a great choice for summer.
+          {product.description ||
+            'Un produit de haute qualité, parfait pour une utilisation quotidienne.'}
         </div>
         <div className="productdisplay-right-size">
-          <h1>Select Size</h1>
+          <h1>Sélectionnez la taille</h1>
           <div className="productdisplay-right-sizes">
             {['S', 'M', 'L', 'XL', 'XXL'].map((size) => (
               <div
@@ -65,7 +74,7 @@ const ProductDisplay = (props) => {
             ))}
           </div>
         </div>
-        <button onClick={handleAddToCart}>Add to Cart</button>
+        <button onClick={handleAddToCart}>Ajouter au panier</button>
       </div>
     </div>
   );
