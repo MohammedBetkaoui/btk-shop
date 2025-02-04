@@ -11,24 +11,26 @@ import Footer from './Components/footer/footer';
 import men_banner from './Components/assets/banner_mens.png';
 import women_banner from './Components/assets/banner_women.png';
 import kids_banner from './Components/assets/banner_kids.png';
-import { UserProvider } from './Context/UserContext'; // Importez UserProvider
+import { UserProvider } from './Context/UserContext';
+
+const banners = {
+  men: men_banner,
+  women: women_banner,
+  kids: kids_banner
+};
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-        <UserProvider> {/* Ajoutez UserProvider ici */}
+        <UserProvider>
           <Navbar />
           <Routes>
             <Route path="/" element={<Shop />} />
-            <Route path="/product" element={<Product />}>
-              <Route path=":productId" element={<Product />} />
-            </Route>
+            <Route path="/product/:productId" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<LoginSignup />} />
-            <Route path="/men" element={<ShopCategory banner={men_banner} category="men" />} />
-            <Route path="/women" element={<ShopCategory banner={women_banner} category="women" />} />
-            <Route path="/kids" element={<ShopCategory banner={kids_banner} category="kids" />} />
+            <Route path="/category/:category" element={<ShopCategory banners={banners} />} />
           </Routes>
           <Footer />
         </UserProvider>

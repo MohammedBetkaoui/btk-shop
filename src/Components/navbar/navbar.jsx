@@ -7,19 +7,11 @@ import { Menu, X, ShoppingCart, Shirt, User, Baby, LogIn, LogOut } from 'lucide-
 import { ShopContext } from '../../Context/shopContext';
 import { UserContext } from '../../Context/UserContext'; 
 
-
-
 const Navbar = () => {
-  const [menu, setMenu] = useState('shop');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Accédez au panier depuis le contexte
   const { cart } = useContext(ShopContext);
-
-  // Accédez à l'utilisateur et aux fonctions de connexion/déconnexion
   const { user, logout } = useContext(UserContext);
 
-  // Calculez le nombre total d'articles dans le panier
   const getTotalCartItems = () => {
     return Object.values(cart).reduce((total, quantity) => total + quantity, 0);
   };
@@ -33,8 +25,8 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    logout(); // Déconnecter l'utilisateur
-    closeMobileMenu(); // Fermer le menu mobile après déconnexion
+    logout();
+    closeMobileMenu();
   };
 
   return (
@@ -44,34 +36,28 @@ const Navbar = () => {
         <p>BTK-SHOP</p>
       </div>
 
-      {/* Menu principal */}
       <ul className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <li onClick={() => { setMenu('shop'); closeMobileMenu(); }}>
+        <li onClick={closeMobileMenu}>
           <Link to="/">
             <ShoppingCart size={16} /> Shop
           </Link>
-          {menu === 'shop' && <hr />}
         </li>
-        <li onClick={() => { setMenu('men'); closeMobileMenu(); }}>
-          <Link to="/men">
+        <li onClick={closeMobileMenu}>
+          <Link to="/category/Men">
             <Shirt size={16} /> Men
           </Link>
-          {menu === 'men' && <hr />}
         </li>
-        <li onClick={() => { setMenu('women'); closeMobileMenu(); }}>
-          <Link to="/women">
+        <li onClick={closeMobileMenu}>
+          <Link to="/category/Women">
             <User size={16} /> Women
           </Link>
-          {menu === 'women' && <hr />}
         </li>
-        <li onClick={() => { setMenu('kids'); closeMobileMenu(); }}>
-          <Link to="/kids">
+        <li onClick={closeMobileMenu}>
+          <Link to="/category/Kids">
             <Baby size={16} /> Kids
           </Link>
-          {menu === 'kids' && <hr />}
         </li>
 
-        {/* Bouton de connexion/déconnexion dans le menu mobile */}
         {user ? (
           <li className="mobile-login-button" onClick={handleLogout}>
             <Link to="/">
@@ -89,7 +75,6 @@ const Navbar = () => {
         )}
       </ul>
 
-      {/* Boutons de connexion/déconnexion et panier (version desktop) */}
       <div className="nav-actions">
         {user ? (
           <button className="login-button" onClick={handleLogout}>
@@ -110,7 +95,6 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Bouton de menu mobile */}
       <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
