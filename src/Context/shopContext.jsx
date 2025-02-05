@@ -1,112 +1,89 @@
-import React, { createContext, useState, useEffect } from "react";
-
-export const ShopContext = createContext(null);
-
-const getDefaultCart = () => {
-  return {};
-};
-
 export const ShopContextProvider = ({ children }) => {
-  const [cart, setCart] = useState(getDefaultCart());
+  const [cart, setCart] = useState([]);
   const [all_product, setAllProduct] = useState([]);
 
+  // Charger le panier au montage
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('https://backend-btk-shop.onrender.com/products');
-        const data = await response.json();
-        if (data.products) {
-          setAllProduct(data.products);
-        }
-      } catch (error) {
-        console.error('Erreur lors de la récupération des produits:', error);
-      }
-    };
-
-    fetchProducts();
+    const token = localStorage.getItem('token');
+    if (token) {
+      getCart();
+    }
   }, []);
 
-  const addToCart = async (itemId, size, quantity = 1) => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return; // Redirect handled in ProductDisplay
-    }
-
+  const addToCart = async (numericId, size, quantity = 1) => {
     try {
       const response = await fetch('https://backend-btk-shop.onrender.com/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify({ productId: itemId, quantity, size }),
+        body: JSON.stringify({ productId: numericId, quantity, size }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const data = await response.json();
-      setCart(data.cart);
+      if (response.ok) {
+        setCart(data.cart);
+      } else {
+        throw new Error(data.message || 'Erreur lors de l\'ajout au panier');
+      }
     } catch (error) {
-      console.error("Error adding to cart:", error);
+      console.error("Erreur:", error);
+      alert(error.message);
     }
   };
 
   const getCart = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return;
-    }
-
     try {
       const response = await fetch('https://backend-btk-shop.onrender.com/cart', {
-        method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const data = await response.json();
-      setCart(data.cart);
+      if (response.ok) {
+        // Convertir en format frontend
+        const formattedCart = data.cart.reduce((acc, item) => {
+          acc[item.productId] = acc[item.productId] || {};
+          acc[item.productId][item.size] = { quantity: item.quantity };
+          return acc;
+        }, {});
+        setCart(formattedCart);
+      }
     } catch (error) {
-      console.error("Error getting cart:", error);
+      console.error("Erreur:", error);
     }
   };
 
-  const removeFromCart = async (itemId, size) => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return;
-    }
-
+  const removeFromCart = async (numericId, size) => {
     try {
       const response = await fetch('https://backend-btk-shop.onrender.com/cart/remove', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify({ productId: itemId, size }),
+        body: JSON.stringify({ productId: numericId, size }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const data = await response.json();
-      setCart(data.cart);
+      if (response.ok) {
+        setCart(data.cart);
+      }
     } catch (error) {
-      console.error("Error removing from cart:", error);
+      console.error("Erreur:", error);
     }
   };
 
-  const contextValue = { all_product, cart, addToCart, removeFromCart, getCart };
+  const contextValue = { 
+    all_product, 
+    cart, 
+    addToCart, 
+    removeFromCart, 
+    getCart,
+    setAllProduct 
+  };
 
   return (
     <ShopContext.Provider value={contextValue}>
@@ -114,5 +91,3 @@ export const ShopContextProvider = ({ children }) => {
     </ShopContext.Provider>
   );
 };
-
-export default ShopContext;

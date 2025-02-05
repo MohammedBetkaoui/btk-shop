@@ -29,22 +29,20 @@ const ProductDisplay = () => {
     setSelectedSize(size);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!selectedSize) {
-      alert('Veuillez sélectionner une taille avant d\'ajouter au panier.');
+      alert('Veuillez sélectionner une taille');
       return;
     }
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login', { state: { from: location.pathname } });
-      return;
+  
+    try {
+      await addToCart(product.id, selectedSize);
+      navigate('/cart');
+    } catch (error) {
+      console.error('Erreur:', error);
+      alert(error.message);
     }
-
-    addToCart(product.id, selectedSize); // Pass the selected size to addToCart
-    navigate('/cart');
   };
-
   return (
     <div className="productdisplay">
       <div className="productdisplay-left">

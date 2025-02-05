@@ -6,21 +6,14 @@ import remove_icon from '../assets/cart_cross_icon.png';
 const Cartitems = () => {
   const { all_product, cart, addToCart, removeFromCart } = useContext(ShopContext);
 
-  const cartItems = [];
-  for (const productId in cart) {
-    for (const size in cart[productId]) {
-      if (cart[productId][size].quantity > 0) {
-        const product = all_product.find((p) => p.id === Number(productId));
-        if (product) {
-          cartItems.push({
-            ...product,
-            quantity: cart[productId][size].quantity,
-            size: size,
-          });
-        }
-      }
-    }
-  }
+  // Conversion du format du panier
+  const cartItems = Object.entries(cart).flatMap(([productId, sizes]) => 
+    Object.entries(sizes).map(([size, details]) => {
+      const product = all_product.find(p => p.id === Number(productId));
+      return product ? { ...product, size, quantity: details.quantity } : null;
+    }).filter(Boolean)
+  );
+
 
   const calculateTotal = () => {
     return cartItems.reduce((total, product) => {
