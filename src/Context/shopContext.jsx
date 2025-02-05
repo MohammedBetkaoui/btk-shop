@@ -3,18 +3,13 @@ import React, { createContext, useState, useEffect } from "react";
 export const ShopContext = createContext(null);
 
 const getDefaultCart = () => {
-  let cart = {};
-  for (let i = 1; i <= 100; i++) {
-    cart[i] = 0;
-  }
-  return cart;
+  return {};
 };
 
 export const ShopContextProvider = ({ children }) => {
   const [cart, setCart] = useState(getDefaultCart());
   const [all_product, setAllProduct] = useState([]);
 
-  // Récupérer les produits depuis le backend
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -31,35 +26,87 @@ export const ShopContextProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
- 
-
-  const addToCart = async (itemId) => {
+  const addToCart = async (itemId, size, quantity = 1) => {
     const token = localStorage.getItem('token');
     if (!token) {
-      window.location.href = '/login'; // Rediriger vers la page de connexion
+      return; // Redirect handled in ProductDisplay
+    }
+
+    try {
+      const response = await fetch('https://backend-btk-shop.onrender.com/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId: itemId, quantity, size }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setCart(data.cart);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+
+  const getCart = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
       return;
     }
 
-    const newCart = { ...cart, [itemId]: cart[itemId] + 1 };
-    setCart(newCart);
+    try {
+      const response = await fetch('https://backend-btk-shop.onrender.com/cart', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
 
-   
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setCart(data.cart);
+    } catch (error) {
+      console.error("Error getting cart:", error);
+    }
   };
 
-  const removeFromCart = async (itemId) => {
+  const removeFromCart = async (itemId, size) => {
     const token = localStorage.getItem('token');
     if (!token) {
-      window.location.href = '/login'; // Rediriger vers la page de connexion
       return;
     }
 
-    const newCart = { ...cart, [itemId]: cart[itemId] - 1 };
-    setCart(newCart);
+    try {
+      const response = await fetch('https://backend-btk-shop.onrender.com/cart/remove', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId: itemId, size }),
+      });
 
-   
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setCart(data.cart);
+    } catch (error) {
+      console.error("Error removing from cart:", error);
+    }
   };
 
-  const contextValue = { all_product, cart, addToCart, removeFromCart };
+  const contextValue = { all_product, cart, addToCart, removeFromCart, getCart };
 
   return (
     <ShopContext.Provider value={contextValue}>

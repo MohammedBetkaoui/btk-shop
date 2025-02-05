@@ -1,22 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../Context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './css/loginsignup.css';
 
 const LoginSignup = () => {
-  const { user, login } = useContext(UserContext); // Récupérez l'utilisateur et la fonction login
+  const { user, login } = useContext(UserContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
-  const [error, setError] = useState(''); // État pour gérer les messages d'erreur
-  const [isLoading, setIsLoading] = useState(false); // État pour gérer le chargement
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Rediriger l'utilisateur s'il est déjà connecté
   useEffect(() => {
     if (user) {
-      navigate('/'); // Redirige vers la page principale si l'utilisateur est déjà connecté
+      const from = location.state?.from || '/';
+      navigate(from, { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, location]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,8 +25,8 @@ const LoginSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Activer l'indicateur de chargement
-    setError(''); // Réinitialiser les erreurs
+    setIsLoading(true);
+    setError('');
 
     const endpoint = isLogin ? '/userlogin' : '/register';
 
@@ -38,16 +39,17 @@ const LoginSignup = () => {
 
       const data = await response.json();
       if (data.success) {
-        login(data.user, data.token); // Connectez l'utilisateur
-        navigate('/'); // Redirigez vers la page principale après la connexion
+        login(data.user, data.token);
+        const from = location.state?.from || '/';
+        navigate(from, { replace: true });
       } else {
-        setError(data.message || 'Une erreur s\'est produite'); // Affichez l'erreur
+        setError(data.message || 'Une erreur s\'est produite');
       }
     } catch (error) {
       console.error('Erreur:', error);
-      setError('Une erreur s\'est produite lors de la connexion'); // Affichez une erreur générique
+      setError('Une erreur s\'est produite lors de la connexion');
     } finally {
-      setIsLoading(false); // Désactiver l'indicateur de chargement
+      setIsLoading(false);
     }
   };
 
@@ -55,7 +57,7 @@ const LoginSignup = () => {
     <div className="login-signup">
       <div className="loginsignup-container">
         <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-        {/* Affichez le message d'erreur s'il existe */}
+       
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           {!isLogin && (

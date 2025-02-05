@@ -1,17 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './productDisplay.css';
 import star_icon from '../assets/star_icon.png';
 import star_dull_icon from '../assets/star_dull_icon.png';
 import { ShopContext } from '../../Context/shopContext';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 const ProductDisplay = () => {
-  const { all_product, addToCart } = useContext(ShopContext);
+  const { all_product, addToCart, getCart } = useContext(ShopContext); // Import getCart
   const { productId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [selectedSize, setSelectedSize] = useState(null);
 
-  // Trouver le produit correspondant à l'ID
   const product = all_product.find((e) => e.id === Number(productId));
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      await getCart(); // Fetch cart on component mount
+    };
+    fetchCart();
+  }, [getCart]); // Add getCart to the dependency array
 
   if (!product) {
     return <div>Produit non trouvé</div>;
@@ -26,7 +34,15 @@ const ProductDisplay = () => {
       alert('Veuillez sélectionner une taille avant d\'ajouter au panier.');
       return;
     }
-    addToCart(product.id, selectedSize); // Ajouter le produit au panier avec la taille sélectionnée
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login', { state: { from: location.pathname } });
+      return;
+    }
+
+    addToCart(product.id, selectedSize); // Pass the selected size to addToCart
+    navigate('/cart');
   };
 
   return (
@@ -57,8 +73,7 @@ const ProductDisplay = () => {
           <div className="productdisplay-right-price-new">${product.new_price}</div>
         </div>
         <div className="productdisplay-right-description">
-          {product.description ||
-            'Un produit de haute qualité, parfait pour une utilisation quotidienne.'}
+          {product.description || 'Un produit de haute qualité, parfait pour une utilisation quotidienne.'}
         </div>
         <div className="productdisplay-right-size">
           <h1>Sélectionnez la taille</h1>
