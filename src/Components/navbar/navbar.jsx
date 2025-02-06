@@ -5,7 +5,7 @@ import cart_icon from '../assets/cart_icon.png';
 import { Link } from 'react-router-dom';
 import { Menu, X, ShoppingCart, Shirt, User, Baby, LogIn, LogOut } from 'lucide-react';
 import { ShopContext } from '../../Context/shopContext';
-import { UserContext } from '../../Context/UserContext'; 
+import { UserContext } from '../../Context/UserContext';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,20 +13,7 @@ const Navbar = () => {
   const { user, logout } = useContext(UserContext);
 
   const getTotalCartItems = () => {
-    return Object.values(cart).reduce((total, quantity) => total + quantity, 0);
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  const handleLogout = () => {
-    logout();
-    closeMobileMenu();
+    return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
   return (
@@ -37,65 +24,41 @@ const Navbar = () => {
       </div>
 
       <ul className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <li onClick={closeMobileMenu}>
-          <Link to="/">
-            <ShoppingCart size={16} /> Shop
-          </Link>
-        </li>
-        <li onClick={closeMobileMenu}>
-          <Link to="/category/Men">
-            <Shirt size={16} /> Men
-          </Link>
-        </li>
-        <li onClick={closeMobileMenu}>
-          <Link to="/category/Women">
-            <User size={16} /> Women
-          </Link>
-        </li>
-        <li onClick={closeMobileMenu}>
-          <Link to="/category/Kids">
-            <Baby size={16} /> Kids
-          </Link>
-        </li>
-
+        <li><Link to="/"><ShoppingCart size={16} /> Shop</Link></li>
+        <li><Link to="/category/Men"><Shirt size={16} /> Men</Link></li>
+        <li><Link to="/category/Women"><User size={16} /> Women</Link></li>
+        <li><Link to="/category/Kids"><Baby size={16} /> Kids</Link></li>
         {user ? (
-          <li className="mobile-login-button" onClick={handleLogout}>
-            <Link to="/">
-              <LogOut size={16} style={{ marginRight: '8px' }} />
-              Logout
-            </Link>
+          <li className="mobile-login-button" onClick={logout}>
+            <Link to="/"><LogOut size={16} /> Logout</Link>
           </li>
         ) : (
-          <li className="mobile-login-button" onClick={closeMobileMenu}>
-            <Link to="/login">
-              <LogIn size={16} style={{ marginRight: '8px' }} />
-              Login
-            </Link>
+          <li className="mobile-login-button">
+            <Link to="/login"><LogIn size={16} /> Login</Link>
           </li>
         )}
       </ul>
 
       <div className="nav-actions">
         {user ? (
-          <button className="login-button" onClick={handleLogout}>
-            <LogOut size={16} style={{ marginRight: '8px' }} />
-            Logout
+          <button className="login-button" onClick={logout}>
+            <LogOut size={16} /> Logout
           </button>
         ) : (
           <Link to="/login" className="login-button">
-            <button>
-              <LogIn size={16} style={{ marginRight: '8px' }} />
-              Login
-            </button>
+            <button><LogIn size={16} /> Login</button>
           </Link>
         )}
         <Link to="/cart" className="cart-icon">
-          <img src={cart_icon} alt="Cart Icon" />
+          <img src={cart_icon} alt="Cart" />
           <span className="cart-count">{getTotalCartItems()}</span>
         </Link>
       </div>
 
-      <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
+      <button 
+        className="mobile-menu-toggle" 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      >
         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
     </div>

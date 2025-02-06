@@ -6,23 +6,23 @@ import Item from '../items/item';
 const Popular = () => {
   const { all_product } = useContext(ShopContext);
   const [popular, setPopular] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Fonction pour filtrer les produits récents de la catégorie "Men"
   const filterMenProducts = (products) => {
     const currentDate = new Date();
-    const fiveDaysAgo = new Date(currentDate);
-    fiveDaysAgo.setDate(currentDate.getDate() - 5);
+    const fiveDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 5));
 
     return products.filter((product) => {
-      const productDate = new Date(product.date);
+      const productDate = new Date(product.createdAt);
       return productDate >= fiveDaysAgo && product.category === 'Men';
     });
   };
 
   useEffect(() => {
-    if (all_product.length > 0) {
+    if (all_product && all_product.length > 0) {
       const filteredCollections = filterMenProducts(all_product);
       setPopular(filteredCollections);
+      setIsLoading(false);
     }
   }, [all_product]);
 
@@ -31,10 +31,12 @@ const Popular = () => {
       <h1>POPULAR IN MEN</h1>
       <hr />
       <div className="popular-item">
-        {popular.length > 0 ? (
-          popular.map((item, i) => (
+        {isLoading ? (
+          <div className="loading">Chargement en cours...</div>
+        ) : popular.length > 0 ? (
+          popular.map((item) => (
             <Item 
-              key={i} 
+              key={item.id}
               id={item.id} 
               name={item.name} 
               image={item.image} 

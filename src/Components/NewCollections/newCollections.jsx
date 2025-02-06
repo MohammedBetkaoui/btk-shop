@@ -6,24 +6,23 @@ import Item from '../items/item';
 const NewCollections = () => {
   const { all_product } = useContext(ShopContext);
   const [newCollections, setNewCollections] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Fonction pour filtrer les produits ajoutés dans les 5 derniers jours
   const filterNewProducts = (products) => {
     const currentDate = new Date();
-    const fiveDaysAgo = new Date(currentDate);
-    fiveDaysAgo.setDate(currentDate.getDate() - 5); // Soustraire 5 jours de la date actuelle
+    const fiveDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 5));
 
     return products.filter((product) => {
-      const productDate = new Date(product.date); // Convertir la date du produit en objet Date
-      return productDate >= fiveDaysAgo; // Retourner les produits ajoutés dans les 5 derniers jours
+      const productDate = new Date(product.createdAt);
+      return productDate >= fiveDaysAgo;
     });
   };
 
-  // Mettre à jour les nouvelles collections lorsque les produits sont chargés
   useEffect(() => {
-    if (all_product.length > 0) {
+    if (all_product && all_product.length > 0) {
       const filteredCollections = filterNewProducts(all_product);
       setNewCollections(filteredCollections);
+      setIsLoading(false);
     }
   }, [all_product]);
 
@@ -32,10 +31,12 @@ const NewCollections = () => {
       <h1>NEW COLLECTIONS</h1>
       <hr />
       <div className="collections">
-        {newCollections.length > 0 ? (
-          newCollections.map((item, i) => (
+        {isLoading ? (
+          <div className="loading">Chargement en cours...</div>
+        ) : newCollections.length > 0 ? (
+          newCollections.map((item) => (
             <Item
-              key={i}
+              key={item.id}
               id={item.id}
               name={item.name}
               image={item.image}
