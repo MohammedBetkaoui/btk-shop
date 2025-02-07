@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import './cartitems.css';
 import { ShopContext } from '../../Context/shopContext';
-import remove_icon from '../assets/cart_cross_icon.png';
+import { FaTrash } from 'react-icons/fa';
 
 const Cartitems = () => {
   const { cart, updateCart, removeFromCart } = useContext(ShopContext);
   const [total, setTotal] = useState(0);
+  const [updatingItems, setUpdatingItems] = useState({});
 
   useEffect(() => {
     const newTotal = cart.reduce((acc, item) => 
@@ -16,11 +17,27 @@ const Cartitems = () => {
 
   const handleQuantityChange = async (productId, size, newQuantity) => {
     if (newQuantity < 1) return;
-    await updateCart(productId, size, newQuantity);
+    const key = `${productId}-${size}`;
+    try {
+      setUpdatingItems(prev => ({ ...prev, [key]: true }));
+      await updateCart(productId, size, newQuantity);
+    } catch (error) {
+      console.error("Erreur de mise à jour :", error);
+    } finally {
+      setUpdatingItems(prev => ({ ...prev, [key]: false }));
+    }
   };
 
   const handleRemoveItem = async (productId, size) => {
-    await removeFromCart(productId, size);
+    const key = `${productId}-${size}`;
+    try {
+      setUpdatingItems(prev => ({ ...prev, [key]: true }));
+      await removeFromCart(productId, size);
+    } catch (error) {
+      console.error("Erreur de suppression :", error);
+    } finally {
+      setUpdatingItems(prev => ({ ...prev, [key]: false }));
+    }
   };
 
   return (
@@ -28,7 +45,7 @@ const Cartitems = () => {
       <table className="cartitems-table">
         <thead>
           <tr>
-            <th>Supprimer</th>
+            <th className="remove">Supprimer</th>
             <th>Produit</th>
             <th>Nom</th>
             <th>Taille</th>
@@ -39,54 +56,65 @@ const Cartitems = () => {
         </thead>
         <tbody>
           {cart.length > 0 ? (
-            cart.map((item) => (
-              <tr key={`${item.productId}-${item.size}`}>
-                <td data-label="Supprimer">
-                  <img
-                    src={remove_icon}
-                    alt="supprimer"
-                    className="cartitems-remove-icon"
-                    onClick={() => handleRemoveItem(item.productId, item.size)}
-                  />
-                </td>
-                <td data-label="Produit">
-                  <img 
-                    src={item.image} 
-                    alt={item.name} 
-                    className="cartitems-image" 
-                  />
-                </td>
-                <td data-label="Nom">{item.name}</td>
-                <td data-label="Taille">{item.size}</td>
-                <td data-label="Prix">€{item.price?.toFixed(2)}</td>
-                <td data-label="Quantité">
-                  <div className="cartitems-quantity-wrapper">
-                    <button
-                      onClick={() => handleQuantityChange(item.productId, item.size, item.quantity - 1)}
-                    >
-                      -
-                    </button>
-                    <input
-                      type="number"
-                      min="1"
-                      value={item.quantity}
-                      onChange={(e) => {
-                        const qty = Math.max(1, parseInt(e.target.value) || 1);
-                        handleQuantityChange(item.productId, item.size, qty);
-                      }}
+            cart.map((item) => {
+              const itemKey = `${item.productId}-${item.size}`;
+              const isUpdating = updatingItems[itemKey];
+
+              return (
+                <tr key={itemKey} className={isUpdating ? 'loading-row' : ''}>
+                  <td data-label="Supprimer">
+                    {isUpdating ? (
+                      <div className="loading-spinner small"></div>
+                    ) : (
+                      <FaTrash
+                        className="cartitems-remove-icon"
+                        onClick={() => handleRemoveItem(item.productId, item.size)}
+                        style={{ cursor: 'pointer', color: '#ff4d4f' }}
+                      />
+                    )}
+                  </td>
+                  <td data-label="Produit">
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      className="cartitems-image" 
                     />
-                    <button
-                      onClick={() => handleQuantityChange(item.productId, item.size, item.quantity + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
-                </td>
-                <td data-label="Total">
-                  €{(item.price * item.quantity).toFixed(2)}
-                </td>
-              </tr>
-            ))
+                  </td>
+                  <td data-label="Nom">{item.name}</td>
+                  <td data-label="Taille">{item.size}</td>
+                  <td data-label="Prix">{item.price?.toFixed(2)}</td>
+                  <td data-label="Quantité">
+                    <div className="cartitems-quantity-wrapper">
+                      <button
+                        onClick={() => handleQuantityChange(item.productId, item.size, item.quantity - 1)}
+                        disabled={isUpdating}
+                      >
+                        {isUpdating ? <div className="loading-spinner"></div> : '-'}
+                      </button>
+                      <input
+                        type="number"
+                        min="1"
+                        value={item.quantity}
+                        onChange={(e) => {
+                          const qty = Math.max(1, parseInt(e.target.value) || 1);
+                          handleQuantityChange(item.productId, item.size, qty);
+                        }}
+                        disabled={isUpdating}
+                      />
+                      <button
+                        onClick={() => handleQuantityChange(item.productId, item.size, item.quantity + 1)}
+                        disabled={isUpdating}
+                      >
+                        {isUpdating ? <div className="loading-spinner"></div> : '+'}
+                      </button>
+                    </div>
+                  </td>
+                  <td data-label="Total">
+                    {((item.price || 0) * item.quantity).toFixed(2)}
+                  </td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
               <td colSpan="7" className="cartitems-empty">
@@ -102,7 +130,7 @@ const Cartitems = () => {
           <h3>Récapitulatif du panier</h3>
           <div className="summary-total">
             <span>Total :</span>
-            <span>€{total}</span>
+            <span>{total}</span>
           </div>
           <button 
             className="cartitems-checkout-button"
