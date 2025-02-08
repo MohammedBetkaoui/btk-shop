@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './css/order.css';
 
 const Order = () => {
-  const { cart, clearCart } = useContext(ShopContext);
+  const { cart, getCart } = useContext(ShopContext);
   const navigate = useNavigate();
   const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -29,13 +29,15 @@ const Order = () => {
 
       const data = await response.json();
       if (data.success) {
-       
+        await getCart(); 
+        alert(data.message);
         navigate('/');
+      } else {
+        alert(data.message || 'Erreur lors de la commande');
       }
-      alert(data.message || (data.success ? 'Commande passée avec succès !' : 'Erreur lors de la commande'));
     } catch (error) {
       console.error('Erreur lors de la commande :', error);
-      alert('Erreur lors de la commande');
+      alert('Erreur de connexion au serveur');
     }
   };
 
@@ -65,9 +67,9 @@ const Order = () => {
                 <div className="item-details">
                   <h3>{item.name}</h3>
                   <p>Taille: {item.size}</p>
-                  <p>Prix unitaire: {item.price?.toFixed(2)}€</p>
+                  <p>Prix unitaire: {item.price?.toFixed(2)}</p>
                   <p>Quantité: {item.quantity}</p>
-                  <p className="total">Total: {(item.price * item.quantity).toFixed(2)}€</p>
+                  <p className="total">Total: {(item.price * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
             ))}
