@@ -64,10 +64,10 @@ const Cartitems = () => {
                 <tr key={itemKey} className={isUpdating ? 'loading-row' : ''}>
                   <td data-label="Supprimer">
                     {isUpdating ? (
-                      <div className="loading-spinner small"></div>
+                      <div ></div>
                     ) : (
                       <FaTrash
-                        className="cartitems-remove-icon"
+                        className="cartitems-remove-icon loading"
                         onClick={() => handleRemoveItem(item.productId, item.size)}
                         style={{ cursor: 'pointer', color: '#ff4d4f' }}
                       />
