@@ -1,3 +1,4 @@
+// src/App.js
 import React from 'react';
 import './App.css';
 import Navbar from './Components/navbar/navbar';
@@ -7,6 +8,7 @@ import Product from './Pages/product';
 import LoginSignup from './Pages/loginSignup';
 import ShopCategory from './Pages/shopCategory';
 import Cart from './Pages/cart';
+import Order from './Pages/Order'; // Importez le composant Order
 import Footer from './Components/footer/footer';
 import men_banner from './Components/assets/banner_mens.png';
 import women_banner from './Components/assets/banner_women.png';
@@ -31,6 +33,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<LoginSignup />} />
             <Route path="/category/:category" element={<ShopCategory banners={banners} />} />
+            <Route path="/order" element={<Order />} /> {/* Ajoutez la route pour Order */}
           </Routes>
           <Footer />
         </UserProvider>

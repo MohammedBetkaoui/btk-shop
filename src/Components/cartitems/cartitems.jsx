@@ -1,7 +1,9 @@
+// src/Components/cartitems/cartitems.jsx
 import React, { useContext, useState, useEffect } from 'react';
 import './cartitems.css';
 import { ShopContext } from '../../Context/shopContext';
 import { FaTrash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Cartitems = () => {
   const { cart, updateCart, removeFromCart } = useContext(ShopContext);
@@ -64,7 +66,7 @@ const Cartitems = () => {
                 <tr key={itemKey} className={isUpdating ? 'loading-row' : ''}>
                   <td data-label="Supprimer">
                     {isUpdating ? (
-                      <div ></div>
+                      <div></div>
                     ) : (
                       <FaTrash
                         className="cartitems-remove-icon loading"
@@ -132,12 +134,11 @@ const Cartitems = () => {
             <span>Total :</span>
             <span>{total}</span>
           </div>
-          <button 
-            className="cartitems-checkout-button"
-            onClick={() => alert('Redirection vers le paiement...')}
-          >
-            Passer la commande
-          </button>
+          <Link to="/order">
+            <button className="cartitems-checkout-button">
+              Passer la commande
+            </button>
+          </Link>
         </div>
       )}
     </div>
