@@ -14,7 +14,7 @@ const Popular = () => {
 
     return products.filter((product) => {
       const productDate = new Date(product.createdAt);
-      return productDate >= fiveDaysAgo && product.category === 'Men';
+      return productDate >= fiveDaysAgo && (product.category === 'Men' || product.category === 'men' ) ;
     });
   };
 
