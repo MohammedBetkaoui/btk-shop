@@ -10,7 +10,7 @@ const NewCollections = () => {
 
   const filterNewProducts = (products) => {
     const currentDate = new Date();
-    const fiveDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 5));
+    const fiveDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 15));
 
     return products.filter((product) => {
       const productDate = new Date(product.createdAt);
