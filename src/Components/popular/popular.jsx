@@ -10,7 +10,7 @@ const Popular = () => {
 
   const filterMenProducts = (products) => {
     const currentDate = new Date();
-    const fiveDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 15));
+    const fiveDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 150));
 
     return products.filter((product) => {
       const productDate = new Date(product.createdAt);
